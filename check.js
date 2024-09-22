@@ -1,8 +1,10 @@
 const APP = "Jellycat Cafe Reservation";
 
 function check() {
+  console.log("Check begins");
   const token = $persistentStore.read("JELLYCAT_CAFE_LT_TOKEN");
   if (!token) {
+    console.log("Empty token");
     $done();
   }
 
@@ -33,6 +35,7 @@ function isSlotValid(date, time) {
 function handleError(message) {
   $notification.post(APP, "Error", message);
   $persistentStore.write("", "JELLYCAT_CAFE_LT_TOKEN");
+  console.log(message);
   $done();
 }
 
@@ -72,7 +75,9 @@ function handleResponse(bytes) {
       }
       dateStr.push(`${dateSlot.date}: ${timeStr.join(", ")}`);
     }
-    $notification.post(APP, `${count} Valid Seat${count > 1 ? "s" : ""} Found`, dateStr.join("\n"));
+    const subtitle = `${count} Valid Seat${count > 1 ? "s" : ""} Found`;
+    $notification.post(APP, subtitle, dateStr.join("\n"));
+    console.log(subtitle);
   }
   $done();
 }
