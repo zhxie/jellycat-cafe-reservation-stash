@@ -1,7 +1,8 @@
 const APP = "Jellycat Cafe Reservation";
 
 console.log("Record begins");
-const ltToken = $request.headers["LT-TOKEN"];
+const ltToken =
+  $request.headers["LT-TOKEN"] || $request.headers["Lt-Token"] || $request.headers["lt-token"];
 if (ltToken) {
   const token = $persistentStore.read("JELLYCAT_CAFE_LT_TOKEN");
   if (token != ltToken) {

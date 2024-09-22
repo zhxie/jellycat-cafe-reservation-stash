@@ -73,7 +73,7 @@ function handleResponse(bytes) {
     $notification.post(APP, "", message);
     console.log(message);
   } else {
-    console.log("No valid seat");
+    console.log("No empty seat");
   }
 }
 
