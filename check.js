@@ -28,8 +28,8 @@ function check() {
 
 function isSlotValid(date, time) {
   const current = Date.now();
-  const target = Date.parse(`${date} ${time}+8:00`);
-  return current < target;
+  const target = new Date(`${date}T${time}+08:00`);
+  return current < target.getTime();
 }
 
 function handleError(message) {
