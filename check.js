@@ -75,9 +75,10 @@ function handleResponse(bytes) {
       }
       dateStr.push(`${dateSlot.date}: ${timeStr.join(", ")}`);
     }
-    const subtitle = `${count} Valid Seat${count > 1 ? "s" : ""} Found`;
-    $notification.post(APP, subtitle, dateStr.join("\n"));
-    console.log(subtitle);
+    $notification.post(APP, `${count} Valid Seat${count > 1 ? "s" : ""} Found`, dateStr.join("\n"));
+    console.log("Seats found");
+  } else {
+    console.log("Empty seat");
   }
 }
 
