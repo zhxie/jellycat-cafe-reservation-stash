@@ -2,12 +2,13 @@ name: Jellycat Cafe Reservation
 
 http:
   mitm:
-    - "https://xcx-api.dtmiller.com"
+    - "xcx-api.dtmiller.com"
   script:
-    - match: ^https:\/\/xcx-api\.dtmiller\.com\/mini\/mine\/invitation\/126eXMa9uH6$
+    - match: ^https?:\/\/xcx-api\.dtmiller\.com\/mini\/mine\/invitation\/126eXMa9uH6
       name: jellycat-cafe-reservation-record
-      type: request
-      require-body: false
+      type: response
+      require-body: true
+      timeout: 10
 
 cron:
   script:

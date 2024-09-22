@@ -12,7 +12,7 @@ function check() {
     {
       url: "https://xcx-api.dtmiller.com/mini/mine/invitation/126eXMa9uH6",
       headers: {
-        LT_TOKEN: token,
+        "LT-TOKEN": token,
       },
     },
     (error, _, data) => {
