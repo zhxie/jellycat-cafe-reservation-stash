@@ -79,7 +79,6 @@ function handleResponse(bytes) {
     $notification.post(APP, subtitle, dateStr.join("\n"));
     console.log(subtitle);
   }
-  $done();
 }
 
 check();
@@ -88,3 +87,4 @@ setTimeout(check, 20000);
 setTimeout(check, 30000);
 setTimeout(check, 40000);
 setTimeout(check, 50000);
+setTimeout($done, 55000);
