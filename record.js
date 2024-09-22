@@ -8,7 +8,11 @@ if (ltToken) {
     $persistentStore.write(ltToken, "JELLYCAT_CAFE_LT_TOKEN");
     console.log(`Rotate LT-TOKEN to ${ltToken}`);
     $notification.post(APP, "", "The token has been rotated.");
+  } else {
+    console.log("Same LT-TOKEN");
   }
+} else {
+  console.log("No LT-TOKEN");
 }
 
 $done({});

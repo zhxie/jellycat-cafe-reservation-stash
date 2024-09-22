@@ -33,7 +33,7 @@ function isSlotValid(date, time) {
 }
 
 function handleError(message) {
-  $notification.post(APP, "Error", message);
+  $notification.post(APP, "", message);
   $persistentStore.write("", "JELLYCAT_CAFE_LT_TOKEN");
   console.log(message);
   $done();
@@ -65,20 +65,15 @@ function handleResponse(bytes) {
   }
 
   if (res.length > 0) {
-    let count = 0;
     let dateStr = [];
     for (const dateSlot of res) {
-      let timeStr = [];
-      for (const timeSlot of dateSlot.slots) {
-        timeStr.push(`${timeSlot.time}(${timeSlot.remain})`);
-        count += timeSlot.remain;
-      }
-      dateStr.push(`${dateSlot.date}: ${timeStr.join(", ")}`);
+      dateStr.push(dateSlot.date);
     }
-    $notification.post(APP, `${count} Valid Seat${count > 1 ? "s" : ""} Found`, dateStr.join("\n"));
-    console.log("Seats found");
+    const message = `Seats found in ${dateStr.join("\n")}.`;
+    $notification.post(APP, "", message);
+    console.log(message);
   } else {
-    console.log("Empty seat");
+    console.log("No valid seat");
   }
 }
 
