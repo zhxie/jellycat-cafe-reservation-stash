@@ -1,0 +1,24 @@
+name: Jellycat Cafe Reservation
+
+http:
+  mitm:
+    - "https://xcx-api.dtmiller.com"
+  script:
+    - match: ^https:\/\/xcx-api\.dtmiller\.com\/mini\/mine\/invitation\/126eXMa9uH6$
+      name: jellycat-cafe-reservation-record
+      type: request
+      require-body: false
+
+cron:
+  script:
+    - name: jellycat-cafe-reservation-check
+      cron: "* * * * *"
+      timeout: 60
+
+script-providers:
+  jellycat-cafe-reservation-record:
+    url: https://raw.githubusercontent.com/zhxie/jellycat-cafe-reservation-stash/master/record.js
+    interval: 86400
+  jellycat-cafe-reservation-check:
+    url: https://raw.githubusercontent.com/zhxie/jellycat-cafe-reservation-stash/master/check.js
+    interval: 86400
