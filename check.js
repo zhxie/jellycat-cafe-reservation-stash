@@ -69,11 +69,11 @@ function handleResponse(bytes) {
     for (const dateSlot of res) {
       dateStr.push(dateSlot.date);
     }
-    const message = `Seats found in ${dateStr.join("\n")}.`;
+    const message = `Available slots found in ${dateStr.join(", ")}.`;
     $notification.post(APP, "", message);
     console.log(message);
   } else {
-    console.log("No empty seat");
+    console.log("No available slot");
   }
 }
 
