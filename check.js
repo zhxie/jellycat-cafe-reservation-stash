@@ -1,4 +1,5 @@
 const APP = "Jellycat Cafe Reservation";
+const INTERVAL = 5000;
 
 function check() {
   console.log("Check begins");
@@ -77,10 +78,7 @@ function handleResponse(bytes) {
   }
 }
 
-check();
-setTimeout(check, 10000);
-setTimeout(check, 20000);
-setTimeout(check, 30000);
-setTimeout(check, 40000);
-setTimeout(check, 50000);
-setTimeout($done, 55000);
+for (let i = 0; i < 60000; i += INTERVAL) {
+  setTimeout(check, i);
+}
+setTimeout($done, 59000);
