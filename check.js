@@ -14,6 +14,7 @@ function check() {
       url: "https://xcx-api.dtmiller.com/mini/mine/invitation/126eXMa9uH6",
       headers: {
         "LT-TOKEN": token,
+        "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_6_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.52(0x18003421) NetType/WIFI Language/zh_CN",
       },
     },
     (error, _, data) => {
