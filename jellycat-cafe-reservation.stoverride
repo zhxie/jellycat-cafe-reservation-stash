@@ -1,4 +1,5 @@
-name: Jellycat Cafe Reservation
+name: Jellycat CAFE Reservation
+desc: Check available slots of Jellycat CAFE automatically
 
 http:
   mitm:

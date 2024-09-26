@@ -1,9 +1,14 @@
-const APP = "Jellycat Cafe Reservation";
+const APP = "Jellycat CAFE Reservation";
 const INTERVAL = 5000;
+const TIMEOUT = 60000;
+
+const LT_TOKEN_KEY = "JELLYCAT_CAFE_LT_TOKEN";
+const USER_AGENT =
+  "Mozilla/5.0 (iPhone; CPU iPhone OS 17_6_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.52(0x18003421) NetType/WIFI Language/zh_CN";
 
 function check() {
   console.log("Check begins");
-  const token = $persistentStore.read("JELLYCAT_CAFE_LT_TOKEN");
+  const token = $persistentStore.read(LT_TOKEN_KEY);
   if (!token) {
     console.log("Empty token");
     $done();
@@ -14,8 +19,7 @@ function check() {
       url: "https://xcx-api.dtmiller.com/mini/mine/invitation/126eXMa9uH6",
       headers: {
         "LT-TOKEN": token,
-        "User-Agent":
-          "Mozilla/5.0 (iPhone; CPU iPhone OS 17_6_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.52(0x18003421) NetType/WIFI Language/zh_CN",
+        "User-Agent": USER_AGENT,
       },
     },
     (error, response, data) => {
@@ -48,7 +52,7 @@ function isSlotValid(date, time) {
 
 function handleError(message) {
   $notification.post(APP, "", message);
-  $persistentStore.write("", "JELLYCAT_CAFE_LT_TOKEN");
+  $persistentStore.write("", LT_TOKEN_KEY);
   console.log(message);
   $done();
 }
@@ -99,7 +103,7 @@ function handleResponse(bytes) {
   }
 }
 
-for (let i = 0; i < 60000; i += INTERVAL) {
+for (let i = 0; i < TIMEOUT; i += INTERVAL) {
   setTimeout(check, i);
 }
-setTimeout($done, 59000);
+setTimeout($done, TIMEOUT - 1000);
