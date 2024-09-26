@@ -17,13 +17,22 @@ function check() {
         "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_6_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.52(0x18003421) NetType/WIFI Language/zh_CN",
       },
     },
-    (error, _, data) => {
+    (error, response, data) => {
       if (error) {
         handleError("An error occurred while requesting HTTP.");
         return;
       }
 
-      handleResponse(data);
+      if ((response.status || response.statusCode) != 200) {
+        handleError(`Response returned with non-OK (${response.status || response.statusCode}) status.`);
+        return;
+      }
+
+      try {
+        handleResponse(data);
+      } catch (_) {
+        handleError("An error occurred while handling response.");
+      }
     }
   );
 }
