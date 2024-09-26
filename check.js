@@ -14,7 +14,8 @@ function check() {
       url: "https://xcx-api.dtmiller.com/mini/mine/invitation/126eXMa9uH6",
       headers: {
         "LT-TOKEN": token,
-        "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_6_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.52(0x18003421) NetType/WIFI Language/zh_CN",
+        "User-Agent":
+          "Mozilla/5.0 (iPhone; CPU iPhone OS 17_6_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.52(0x18003421) NetType/WIFI Language/zh_CN",
       },
     },
     (error, response, data) => {
@@ -24,7 +25,9 @@ function check() {
       }
 
       if ((response.status || response.statusCode) != 200) {
-        handleError(`Response returned with non-OK (${response.status || response.statusCode}) status.`);
+        handleError(
+          `Response returned with non-OK (${response.status || response.statusCode}) status.`
+        );
         return;
       }
 
@@ -71,18 +74,26 @@ function handleResponse(bytes) {
       }
     }
     if (slots.length > 0) {
-      res.push({ date, slots });
+      let remain = 0;
+      for (const slot of slots) {
+        remain += slot.remain;
+      }
+      res.push({ date, remain, slots });
     }
   }
 
   if (res.length > 0) {
     let dateStr = [];
+    let remain = 0;
     for (const dateSlot of res) {
-      dateStr.push(dateSlot.date);
+      dateStr.push(dateSlot.remain > 1 ? `${dateSlot.date} (${dateSlot.remain})` : dateSlot.date);
+      remain += dateSlot.remain;
     }
-    const message = `Available slots found in ${dateStr.join(", ")}.`;
+    const message = `${remain > 1 ? remain : "An"} available slot${
+      remain > 1 ? "s" : ""
+    } found in ${dateStr.join(", ")}.`;
     $notification.post(APP, "", message);
-    console.log(message);
+    console.log(`${message}\n${JSON.stringify(res)}`);
   } else {
     console.log("No available slot");
   }
